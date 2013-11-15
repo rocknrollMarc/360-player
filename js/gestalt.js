@@ -14,6 +14,8 @@ jq.queryParams = function( defaults ) {
         tmp = ary[ii].split('=');
         key = decodeURI(tmp[0]);
         val = decodeURI(tmp[1]);
+        pumvisible() ? neocomplcache#close_popup() : "\
+        "
 
         switch (val.toLowerCase()) {
         case 'true':
@@ -492,23 +494,23 @@ jq.widget('ui.gestalt', jq.ui.mouse, {
 
         this.element.append(
             jq('<div class="ui-gs-controls"></div>')
-            .append('<button title="prev" class="zoomClass">Prev</button>')
-            .append('<button title="play">Play/Pause</button>')
-            .append('<button title="next" class="zoomClass">Next</button>')
+            .append('<button title="prev" class="zoomClass buttonPrev">Prev</button>')
+            .append('<button title="play" class="buttonPlay/buttonPause">Play/Pause</button>')
+            .append('<button title="next" class="zoomClass buttonNext">Next</button>')
         );
 
         jq('.ui-gs-controls button:first', context)
         .button({
             text: false,
-            icons: { primary: '.ui-icon-prev-default' }
+            icons: { primary: 'ui-icon-prev-default' }
         }).addClass('ui-state-disabled').click(function(event) { self.next(event);if(self.options.controls === 'zoom'){self.changeZoomImage();}  return false; })
         .next().button({
             text: false,
-            icons: { primary: '.ui-icon-play-default' }
+            icons: { primary: 'ui-icon-play-default' }
         }).addClass('ui-state-disabled').click(function(event) { self.startStop(event); return false; })
         .next().button({
             text: false,
-            icons: { primary: '.ui-icon-next-default' }
+            icons: { primary: 'ui-icon-next-default' }
         }).addClass('ui-state-disabled').click(function(event) { self.prev(event); if(self.options.controls === 'zoom'){self.changeZoomImage();} return false; });
 
 
@@ -550,7 +552,7 @@ jq.widget('ui.gestalt', jq.ui.mouse, {
         if (this.options.controls === 'zoom') {
 
 		jq('.ui-gs-controls', context).append(
-			jq('<button title="zoom"  class="ui-gs-resize zoomClass">Resize</button>')
+			jq('<button title="zoom"  class="ui-gs-resize zoomClass buttonZoom">Resize</button>')
 				.button({
 					text: false,
 					icons: { primary: 'ui-icon-zoom-default' }
@@ -566,7 +568,7 @@ jq.widget('ui.gestalt', jq.ui.mouse, {
 							'position' : 'relative',
 							'z-index' : '1100'
 						}
-						$(".ui-gs-controls button").css(prob);
+						$("ui-gs-controls button").css(prob);
      }
 
 
@@ -649,9 +651,12 @@ if (this.options.controls === 'resizeable') {
             });
         })
         .bind('gestaltstart', function() {
-            $button.attr('title', 'pause')
+            $button.attr({
+  title: "pause",
+  id: "buttonPause"
+})
             .find('span.ui-button-icon-primary')
-                .removeClass('ui-icon-play-default').addClass('ui-icon-pause-default');
+                .removeClass('ui-icon-play-default').addClass('buttonPause');
         })
         .bind('gestaltstop', function() {
             $button.attr('title', 'play')
