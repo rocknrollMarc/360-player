@@ -14,8 +14,7 @@ jq.queryParams = function( defaults ) {
         tmp = ary[ii].split('=');
         key = decodeURI(tmp[0]);
         val = decodeURI(tmp[1]);
-        pumvisible() ? neocomplcache#close_popup() : "\
-        "
+
 
         switch (val.toLowerCase()) {
         case 'true':
